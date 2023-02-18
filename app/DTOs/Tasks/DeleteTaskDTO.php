@@ -2,12 +2,12 @@
 
 namespace App\DTOs\Tasks;
 
-use WendellAdriel\ValidatedDTO\Casting\StringCast;
+use WendellAdriel\ValidatedDTO\Casting\IntegerCast;
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
-class SaveTaskDTO extends ValidatedDTO
+class DeleteTaskDTO extends ValidatedDTO
 {
-    public string $content;
+    public int $taskId;
 
     /**
      * Defines the validation rules for the DTO.
@@ -17,7 +17,7 @@ class SaveTaskDTO extends ValidatedDTO
     protected function rules(): array
     {
         return [
-             'content' => ['required', 'string']
+            'taskId' => ['required', 'exists:tasks,id']
         ];
     }
 
@@ -39,7 +39,7 @@ class SaveTaskDTO extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'content'=> new StringCast()
+            'taskId' => new IntegerCast()
         ];
     }
 

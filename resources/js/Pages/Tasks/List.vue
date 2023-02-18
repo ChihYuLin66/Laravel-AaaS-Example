@@ -1,25 +1,30 @@
-<script setup>
-import {onMounted, reactive} from "vue";
+<script setup="props, { emit }">
+import {defineProps, ref} from "vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 
-let apiUrl = '/api/tasks';
+defineProps({
+    tasks: {
+        type: Object,
+        default: () => ({})
+    },
+    isNew: {
+        type: Boolean,
+        default: false
+    }
+})
 
-const tasks = reactive({
-    'data': []
-});
+const emit = defineEmits(['store', 'destory'])
 
-const save = () => {
-    axios.post((apiUrl))
-        .then((response) => {
-
-        });
+const newTaskContent = ref('');
+const store = () => {
+    emit('store', newTaskContent.value)
 }
 
-onMounted(() => {
-    axios.get(apiUrl)
-        .then((response) => {
-            tasks.data = response.data;
-        })
-})
+const destory = (task) => {
+    emit('destory', task)
+}
 </script>
 
 <template>
@@ -39,16 +44,32 @@ onMounted(() => {
             </tr>
             </thead>
             <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="task in tasks.data"
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="task in tasks"
                 :key="task.id">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    # @{{ task.id }}
-                </th>
-                <td class="px-6 py-4">
-                    @{{ task.content }}
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    # {{ task.id }}
                 </td>
                 <td class="px-6 py-4">
+                    {{ task.content }}
+                </td>
+                <td class="px-6 py-4">
+                    <danger-button @click="destory(task)">
+                        Delete
+                    </danger-button>
+                </td>
+            </tr>
 
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-if="isNew">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                </td>
+                <td class="px-6 py-4">
+                    <input type="text" v-model="newTaskContent">
+                </td>
+                <td class="px-6 py-4">
+                    <PrimaryButton class="mb-3" @click="store">
+                        Save
+                    </PrimaryButton>
                 </td>
             </tr>
             </tbody>

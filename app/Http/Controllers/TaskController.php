@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Tasks\DeleteTask;
+use App\Actions\Tasks\FetchTasks;
+use App\Actions\Tasks\SaveTask;
+use App\DTOs\Tasks\DeleteTaskDTO;
+use App\DTOs\Tasks\FetchTasksDTO;
+use App\DTOs\Tasks\SaveTaskDTO;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,17 +18,17 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request, FetchTasks $action): JsonResponse
     {
-        return response()->json(Task::all());
+        return response()->json($action->handle(FetchTasksDTO::fromRequest($request)));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): Response
+    public function store(Request $request, SaveTask $action): JsonResponse
     {
-        //
+        return response()->json($action->handle(SaveTaskDTO::fromRequest($request)));
     }
 
     /**
@@ -44,8 +50,8 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task): Response
+    public function destroy(Request $request,int $task, DeleteTask $action): JsonResponse
     {
-        //
+        return response()->json($action->handle(DeleteTaskDTO::fromRequest($request)));
     }
 }

@@ -14,9 +14,7 @@ class FetchTasksDTO extends ValidatedDTO
      */
     protected function rules(): array
     {
-        return [
-
-        ];
+        return [];
     }
 
     /**
@@ -36,9 +34,7 @@ class FetchTasksDTO extends ValidatedDTO
      */
     protected function casts(): array
     {
-        return [
-//            'content' => StringCast::class
-        ];
+        return [];
     }
 
     /**

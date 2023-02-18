@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Actions\Tasks;
+namespace App\Actions\Tasks;
 
 use App\DTOs\Tasks\FetchTasksDTO;
 use Illuminate\Database\Eloquent\Collection;
