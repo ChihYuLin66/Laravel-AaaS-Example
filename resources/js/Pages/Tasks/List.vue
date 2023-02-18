@@ -1,12 +1,21 @@
 <script setup>
 import {onMounted, reactive} from "vue";
 
+let apiUrl = '/api/tasks';
+
 const tasks = reactive({
     'data': []
-})
+});
+
+const save = () => {
+    axios.post((apiUrl))
+        .then((response) => {
+
+        });
+}
 
 onMounted(() => {
-    axios.get('/api/tasks')
+    axios.get(apiUrl)
         .then((response) => {
             tasks.data = response.data;
         })
@@ -27,7 +36,6 @@ onMounted(() => {
                 <th scope="col" class="px-6 py-3">
                     Action
                 </th>
-
             </tr>
             </thead>
             <tbody>

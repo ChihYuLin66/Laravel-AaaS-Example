@@ -1,14 +1,12 @@
 <?php
 
-namespace App\DTOs;
+namespace App\DTOs\Tasks;
 
-use WendellAdriel\ValidatedDTO\Casting\IntegerCast;
 use WendellAdriel\ValidatedDTO\Casting\StringCast;
 use WendellAdriel\ValidatedDTO\ValidatedDTO;
 
-class FetchTasksDTO extends ValidatedDTO
+class SaveTaskDTO extends ValidatedDTO
 {
-    public int $userId;
     public string $content;
 
     /**
@@ -19,8 +17,7 @@ class FetchTasksDTO extends ValidatedDTO
     protected function rules(): array
     {
         return [
-            'userId' => ['required', 'exists:users,id'],
-            'content' => ['required', 'string']
+             'content' => ['required', 'string']
         ];
     }
 
@@ -42,8 +39,7 @@ class FetchTasksDTO extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'userId' => IntegerCast::class,
-            'content' => StringCast::class
+            'content'=> StringCast::class
         ];
     }
 

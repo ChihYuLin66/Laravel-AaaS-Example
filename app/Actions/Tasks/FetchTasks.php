@@ -2,11 +2,18 @@
 
 namespace app\Actions\Tasks;
 
+use App\DTOs\Tasks\FetchTasksDTO;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
+
 class FetchTasks
 {
-    public function handle()
+    /**
+     * @param FetchTasksDTO $dto
+     * @return mixed
+     */
+    public function handle(FetchTasksDTO $dto): Collection
     {
-        User::query()
-            ->
+        return Auth::user()->tasks;
     }
 }
