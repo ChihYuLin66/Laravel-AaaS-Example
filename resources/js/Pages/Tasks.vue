@@ -19,7 +19,6 @@ const addHandler = () => {
 const getTasks = () => {
     axios.get(apiUrl)
         .then((response) => {
-            console.log(response);
             tasks.data = response.data;
         })
 }

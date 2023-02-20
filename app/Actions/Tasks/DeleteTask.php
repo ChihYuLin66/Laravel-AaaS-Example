@@ -8,11 +8,11 @@ use App\Models\Task;
 class DeleteTask
 {
     /**
-     * @param DeleteTaskDTO $dto
-     * @return mixed
+     * @param int $taskId
+     * @return boolean
      */
-    public function handle(DeleteTaskDTO $dto): Task
+    public function handle(int $taskId): void
     {
-        return Task::find($dto->taskId)->delete();
+        Task::find($taskId)->delete();
     }
 }

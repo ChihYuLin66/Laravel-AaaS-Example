@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Actions\Tasks\DeleteTask;
 use App\Actions\Tasks\FetchTasks;
 use App\Actions\Tasks\SaveTask;
-use App\DTOs\Tasks\DeleteTaskDTO;
 use App\DTOs\Tasks\FetchTasksDTO;
 use App\DTOs\Tasks\SaveTaskDTO;
 use App\Models\Task;
@@ -50,8 +49,9 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request,int $task, DeleteTask $action): JsonResponse
+    public function destroy(Task $task, DeleteTask $action): Response
     {
-        return response()->json($action->handle(DeleteTaskDTO::fromRequest($request)));
+        $action->handle($task->id);
+        return response()->noContent();
     }
 }

@@ -1,10 +1,10 @@
 <script setup="props, { emit }">
-import {defineProps, ref} from "vue";
+import {defineProps, ref, watch} from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 
-defineProps({
+const props = defineProps({
     tasks: {
         type: Object,
         default: () => ({})
@@ -25,6 +25,12 @@ const store = () => {
 const destory = (task) => {
     emit('destory', task)
 }
+
+watch(() => props.isNew, (newValue, oldValue) => {
+    if (newValue === true) {
+        newTaskContent.value = '';
+    }
+})
 </script>
 
 <template>
